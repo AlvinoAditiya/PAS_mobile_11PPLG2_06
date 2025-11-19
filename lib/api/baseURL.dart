@@ -3,5 +3,4 @@ class BaseURL {
   static const String login = "https://mediadwi.com/api/latihan/login";
   static const String tv = "https://api.tvmaze.com/shows";
 
-  static var baseUrl;
 }

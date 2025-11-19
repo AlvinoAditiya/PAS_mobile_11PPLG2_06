@@ -9,7 +9,7 @@ class SplashscreenPage extends StatelessWidget {
     final controller = Get.find<SplashscreenController>();
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 56, 143, 214),
+      backgroundColor:Colors.deepPurpleAccent,
       body: Center(
         child: Text(
           "Ini Splashscreen",

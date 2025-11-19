@@ -13,44 +13,48 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Login API')),
-       body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            // Username Reusable Input
-            CustomTextfiled(
-              controller: controller.usernameController,
-              label: "Username",
-              labelColor: Colors.deepPurple,
-              pass: false,
-              isNumber: false,
-            ),
-            const SizedBox(height: 16),
+        body: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Username Reusable Input
+                CustomTextfiled(
+                  controller: controller.usernameController,
+                  label: "Username",
+                  labelColor: Colors.deepPurple,
+                  pass: false,
+                  isNumber: false,
+                ),
+                const SizedBox(height: 16),
 
-            // Password Reusable Input
-            CustomTextfiled(
-              controller: controller.passwordController,
-              label: "Password",
-              labelColor: Colors.deepPurple,
-              pass: true,
-              isNumber: false,
-            ),
-            const SizedBox(height: 24),
+                // Password Reusable Input
+                CustomTextfiled(
+                  controller: controller.passwordController,
+                  label: "Password",
+                  labelColor: Colors.deepPurple,
+                  pass: true,
+                  isNumber: false,
+                ),
+                const SizedBox(height: 24),
 
-            Obx(() => controller.isLoading.value
-                ? const CircularProgressIndicator()
-                : CustomButton(
-                    myText: "Login",
-                    myTextColor: const Color.fromARGB(255, 0, 0, 0),
-                    onPressed: () => controller.login(),
-                  )),
-            TextButton(
-              onPressed: () => Get.toNamed(AppRoutes.registerPage),
-              child: const Text("Belum punya akun? Register"),
+                Obx(() => controller.isLoading.value
+                    ? const CircularProgressIndicator()
+                    : CustomButton(
+                        myText: "Login",
+                        myTextColor: const Color.fromARGB(255, 0, 0, 0),
+                        onPressed: () => controller.login(),
+                      )),
+                TextButton(
+                  onPressed: () => Get.toNamed(AppRoutes.registerPage),
+                  child: const Text("Belum punya akun? Register"),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+
     );
   }
 }

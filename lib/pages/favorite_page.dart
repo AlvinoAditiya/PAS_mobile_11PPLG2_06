@@ -1,41 +1,52 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:get/get_core/src/get_main.dart';
-// import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-// import 'package:pas_mobile_11pplg2_06/controller/favorite.controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pas_mobile_11pplg2_06/controller/favorite.controller.dart';
+import '../models/tv_model.dart' hide Image;
 
-// class FavoritePage extends StatelessWidget {
-//   FavoritePage({super.key});
-//   final FavoriteController controller = Get.find<FavoriteController>();
+class FavoritePage extends StatelessWidget {
+  FavoritePage({super.key});
+  final FavoriteController favController = Get.find<FavoriteController>();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text("Favorite")),
-//       body: Obx(() {
-//         if (controller.favorites.isEmpty) {
-//           return const Center(child: Text("Belum ada bookmark"));
-//         }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Favorite TV Shows"),
+        backgroundColor: Colors.deepPurpleAccent,
+        centerTitle: true,
+      ),
+      body: Obx(() {
+        if (favController.favorites.isEmpty) {
+          return const Center(
+            child: Text(
+              "Belum ada favorit",
+              style: TextStyle(fontSize: 18),
+            ),
+          );
+        }
 
-//         return ListView.builder(
-//           itemCount: controller.favorites.length,
-//           itemBuilder: (context, i) {
-//             final p = controller.favorites[i];
-//             return Card(
-//               margin: const EdgeInsets.all(10),
-//               child: ListTile(
-//                 leading: Image.network(p.name, width: 50),
-//                 title: Text(p.rating.toString()),
-//                 subtitle: Text("\$${p.genres}"),
-//                 trailing: IconButton(
-//                   icon: const Icon(Icons.delete, color: Colors.red),
-//                   onPressed: () => controller.deleteFavorite(p.id),
-//                 ),
-//               ),
-//             );
-//           },
-//         );
-//       }),
-//     );
-//   }
-// }
+        return ListView.builder(
+          padding: const EdgeInsets.all(10),
+          itemCount: favController.favorites.length,
+          itemBuilder: (context, index) {
+            final tv = favController.favorites[index];
+
+            return Card(
+              elevation: 3,
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              child: ListTile(
+                leading: Image.network(tv.image.medium, width: 50, fit: BoxFit.cover),
+                title: Text(tv.name),
+                subtitle: Text("Rating: ${tv.rating.average ?? 'N/A'}"),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () => favController.toggleFavorite(tv),
+                ),
+              ),
+            );
+          },
+        );
+      }),
+    );
+  }
+}

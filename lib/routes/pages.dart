@@ -1,10 +1,13 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:pas_mobile_11pplg2_06/binding/bottomNav_binding.dart';
+import 'package:pas_mobile_11pplg2_06/binding/favorite_binding.dart';
 import 'package:pas_mobile_11pplg2_06/binding/login_binding.dart';
 import 'package:pas_mobile_11pplg2_06/binding/register_binding.dart';
 import 'package:pas_mobile_11pplg2_06/binding/splashscreen_binding.dart';
 import 'package:pas_mobile_11pplg2_06/pages/bottomNav_page.dart';
+import 'package:pas_mobile_11pplg2_06/pages/favorite_page.dart';
 import 'package:pas_mobile_11pplg2_06/pages/login_page.dart';
+import 'package:pas_mobile_11pplg2_06/pages/profile_page.dart';
 import 'package:pas_mobile_11pplg2_06/pages/register_page.dart';
 import 'package:pas_mobile_11pplg2_06/pages/splashscreen_page.dart';
 import 'package:pas_mobile_11pplg2_06/pages/tv_page.dart';
@@ -18,6 +21,8 @@ class AppPages {
 
     GetPage(name: AppRoutes.bottomNavPage, page: () => BottomNavPage(),binding: BottomNavBinding()),
     GetPage(name: AppRoutes.tvPage, page: () => TvPage(),binding: BottomNavBinding()),
+    GetPage(name: AppRoutes.favoritePage, page: () => FavoritePage(),binding: FavoriteBinding()),
+    GetPage(name: AppRoutes.profilePage, page: () => ProfilePage()),
 
    
   ];

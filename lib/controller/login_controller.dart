@@ -12,10 +12,19 @@ class LoginController extends GetxController {
   final passwordController = TextEditingController();
   var isLoading = false.obs;
 
+  
+  var username = "".obs;
+  var password = "".obs; 
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadUserData();
+  }
 
   Future<void> login() async {
     isLoading.value = true;
-    final url = Uri.parse('${BaseURL.login}');
+    final url = Uri.parse(BaseURL.login);
 
     try {
       final response = await http.post(url, body: {
@@ -25,25 +34,43 @@ class LoginController extends GetxController {
 
       if (response.statusCode == 200) {
         final data = loginmodelFromJson(response.body);
-
-        // tampilkan pesan dari server
         Get.snackbar('Info', data.message);
 
-        if (data.status == true) {
+        if (data.status) {
           final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('token', data.toString());
+          await prefs.setString('token', data.token);
+          await prefs.setString('username', usernameController.text);
+          await prefs.setString('password', passwordController.text);
 
-          // routing ke main menu
+          username.value = usernameController.text;
+          password.value = passwordController.text;
+          
           Get.offAllNamed(AppRoutes.splashscreenPage);
         }
       } else {
-        Get.snackbar('Error', response.body);
+        Get.snackbar('Error', 'Login gagal: ${response.body}');
       }
     } catch (e) {
       Get.snackbar('Exception', e.toString());
     } finally {
       isLoading.value = false;
     }
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear(); // hapus semua data login
+    usernameController.clear();
+    passwordController.clear();
+    username.value = "";
+    password.value = "";
+    Get.offAllNamed(AppRoutes.loginPage);
+  }
+
+  Future<void> loadUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    username.value = prefs.getString('username') ?? "";
+    password.value = prefs.getString('password') ?? "";
   }
   
 }
