@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:pas_mobile_11pplg2_06/api/baseURL.dart';
 import 'dart:convert';
@@ -17,7 +16,7 @@ class TvController extends GetxController {
   }
 
   void fetchAPITV() async{
-    const url = "https://api.tvmaze.com/shows/82/episodes ";
+    const url = "https://api.tvmaze.com/shows/ ";
     try {
       //kode yang berpotensi error
       isLoading.value = true;
